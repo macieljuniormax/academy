@@ -5,6 +5,9 @@ const app = Vue.createApp({
             image: './assets/images/socks_blue.jpg',
             description: 'A pair of warm, fuzzy socks',
             url: 'https:/github.com/macieljuniormax',
+            inStock: true,
+            showQuantity: true,
+            inventory: 0
         }
     }
 })

@@ -21,6 +21,12 @@
         </div>
         <div class="product-info">
           <h1>{{ product }}</h1>
+          <p v-if='inventory > 0'>In Stock</p>
+          <p v-else>Out of Stock</p>
+          <p v-if='inStock && inventory >= 10'>Quantity:
+            <span v-show='showQuantity'>{{inventory}}</span>
+          </p>
+          <p v-else-if='inStock && inventory > 0 && inventory < 10'>Almost sold out!</p>
           <a :href="url">Made by Maciel Júnior</a>
         </div>
       </div>
