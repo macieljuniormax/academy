@@ -1,45 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Vue Mastery</title>
-  <!-- Import Styles -->
-  <link rel="stylesheet" href="./assets/styles.css" />
-  <!-- Import Vue.js -->
-  <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue Mastery</title>
+    <!-- Import Styles -->
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <!-- Import Vue.js -->
+    <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+  </head>
 
-<body>
-  <div id="app">
-    <div class="nav-bar"></div>
+  <body>
+    <div id="app">
+      <div class="nav-bar"></div>
 
-    <div class="product-display">
-      <div class="product-container">
-        <div class="product-image">
-          <img :src="image" :alt="description">
-        </div>
-        <div class="product-info">
-          <h1>{{ product }}</h1>
-          <p v-if='inventory > 0'>In Stock</p>
-          <p v-else>Out of Stock</p>
-          <p v-if='inStock && inventory >= 10'>Quantity:
-            <span v-show='showQuantity'>{{inventory}}</span>
-          </p>
-          <p v-else-if='inStock && inventory > 0 && inventory < 10'>Almost sold out!</p>
-          <a :href="url">Made by Maciel Júnior</a>
+      <div class="cart">Cart({{ cart }})</div>
+
+      <div class="product-display">
+        <div class="product-container">
+          <div class="product-image">
+            <img :class="{ 'out-of-stock-img': inventory <= 0 }"
+              v-bind:src="image" />
+          </div>
+          <div class="product-info">
+            <h1>{{ product }}</h1>
+            <p v-if="inventory > 0">In Stock</p>
+            <p v-else>Out of Stock</p>
+            <ul>
+              <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+            <div v-for="variant in variants" :key="variant.id"
+              @mouseover="updateImage(variant.image)" class="color-circle"
+              :style="{ backgroundColor: variant.color }">
+            </div>
+            <button
+              class="button"
+              @Click="addToCart"
+              :class="{ disabledButton: inventory <= 0 }"
+              :disabled="inventory <= 0">
+              Add to Car
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Import App -->
-  <script src="./main.js"></script>
+    <!-- Import App -->
+    <script src="./main.js"></script>
 
-  <!-- Mount App -->
-  <script>
-    const mountedApp = app.mount('#app')
-  </script>
-</body>
+    <!-- Mount App -->
+    <script>
+      const mountedApp = app.mount("#app");
+    </script>
+  </body>
 
 </html>
